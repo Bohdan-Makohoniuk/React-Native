@@ -7,28 +7,48 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Font from 'expo-font';
 
 export default function App() {
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+
   return (
     <View style={styles.container}>
       <ImageBackground
         style={styles.image}
         source={require('./assets/images/PhotoBG.png')}
       >
-        <View style={styles.form}>
-          <Text style={styles.title}>Реєстріція</Text>
-          <View>
-            <TextInput style={styles.input} />
-            <TextInput style={styles.input} />
-            <TextInput style={styles.input} secureTextEntry={true} />
-            <TouchableOpacity style={styles.btn}>
-              <Text>Зареєструватись</Text>
-            </TouchableOpacity>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <View
+            style={{ ...styles.form, marginBottom: isShowKeyboard ? 60 : 0 }}
+          >
+            <Text style={styles.title}>Реєстріція</Text>
+            <View>
+              <TextInput
+                style={styles.input}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <TextInput
+                style={styles.input}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <TextInput
+                style={styles.input}
+                secureTextEntry={true}
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+              <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
+                <Text style={styles.btnText}>Зареєструватись</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ImageBackground>
     </View>
   );
@@ -43,7 +63,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-    // alignItems:"center",
     justifyContent: 'center',
   },
 
@@ -58,26 +77,28 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    // marginHorizontal: 16,
     color: '#E8E8E8',
     marginBottom: 16,
-
-    // padding: 10,
-    // borderWidth:343,
-    // borderColor: "#E8E8E8",
   },
+
   form: {
     marginHorizontal: 16,
+    // marginBottom: 50,
   },
 
   btn: {
-    // flexDirection: column,
-    // alignItems: center,
     height: 51,
     backgroundColor: '#FF6C00',
     borderRadius: 100,
     marginTop: 43,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnText: {
+    width: 156,
+    height: 19,
+    fontSize: 16,
+    lineHeight: 19,
+    color: '#FFFFFF',
   },
 });
