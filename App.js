@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import * as Font from 'expo-font';
@@ -17,11 +18,15 @@ export default function App() {
         style={styles.image}
         source={require('./assets/images/PhotoBG.png')}
       >
-        <Text style={styles.title}>Реєстріція</Text>
         <View style={styles.form}>
+          <Text style={styles.title}>Реєстріція</Text>
           <View>
             <TextInput style={styles.input} />
             <TextInput style={styles.input} />
+            <TextInput style={styles.input} secureTextEntry={true} />
+            <TouchableOpacity style={styles.btn}>
+              <Text>Зареєструватись</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    marginHorizontal: 16,
+    // marginHorizontal: 16,
     color: '#E8E8E8',
     marginBottom: 16,
 
@@ -61,5 +66,18 @@ const styles = StyleSheet.create({
     // borderWidth:343,
     // borderColor: "#E8E8E8",
   },
-  form: {},
+  form: {
+    marginHorizontal: 16,
+  },
+
+  btn: {
+    // flexDirection: column,
+    // alignItems: center,
+    height: 51,
+    backgroundColor: '#FF6C00',
+    borderRadius: 100,
+    marginTop: 43,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
