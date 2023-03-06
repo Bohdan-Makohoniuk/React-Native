@@ -9,51 +9,77 @@ import {
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import React, { useState } from 'react';
 import * as Font from 'expo-font';
 
+const initialState = {
+  email: '',
+  password: '',
+};
+
 export default function App() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const keyboardHide = () => {
+    setIsShowKeyboard(false), Keyboard.dismiss();
+    setstate(initialState);
+    console.log(Platform.OS);
+    console.log(state);
+  };
+
+  const [state, setstate] = useState(initialState);
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.image}
-        source={require('./assets/images/PhotoBG.png')}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={require('./assets/images/PhotoBG.png')}
         >
-          <View
-            style={{ ...styles.form, marginBottom: isShowKeyboard ? 60 : 0 }}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
-            <Text style={styles.title}>Реєстріція</Text>
-            <View>
-              <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeyboard(true)}
-              />
-              <TextInput
-                style={styles.input}
-                onFocus={() => setIsShowKeyboard(true)}
-              />
-              <TextInput
-                style={styles.input}
-                secureTextEntry={true}
-                onFocus={() => setIsShowKeyboard(true)}
-              />
-              <TouchableOpacity activeOpacity={0.8} style={styles.btn}>
-                <Text style={styles.btnText}>Зареєструватись</Text>
-              </TouchableOpacity>
+            <View
+              style={{ ...styles.form, marginBottom: isShowKeyboard ? 10 : 0 }}
+            >
+              <Text style={styles.title}>Реєстріція</Text>
+              <View>
+                <TextInput
+                  style={styles.input}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.email}
+                  onChangeText={value =>
+                    setstate(prevState => ({ ...prevState, email: value }))
+                  }
+                />
+
+                <TextInput
+                  style={styles.input}
+                  secureTextEntry={true}
+                  onFocus={() => setIsShowKeyboard(true)}
+                  value={state.password}
+                  onChangeText={value =>
+                    setstate(prevState => ({ ...prevState, password: value }))
+                  }
+                />
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.btn}
+                  onPress={keyboardHide}
+                >
+                  <Text style={styles.btnText}>Зареєструватись</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
-
+// ============================> Стилі <============================================
 const styles = StyleSheet.create({
   container: {
     flex: 1,
