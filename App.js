@@ -14,6 +14,15 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+
+const loadApplication = async () => {
+  await Font.loadAsync({
+    'Roboto-400': require('./assets/fonts/Roboto-Regular.ttf'),
+    // 'Roboto-500': require('./assets/fonts/Roboto-Medium.ttf'),
+    // 'Roboto-700': require('./assets/fonts/Roboto-Bold.ttf'),
+  });
+};
 
 const initialState = {
   email: '',
@@ -28,9 +37,18 @@ export default function App() {
     console.log(Platform.OS);
     console.log(state);
   };
-
   const [state, setstate] = useState(initialState);
 
+  const [isReady, setisReady] = useState(false);
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadApplication}
+        onFinish={() => setisReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
@@ -44,7 +62,7 @@ export default function App() {
             <View
               style={{ ...styles.form, marginBottom: isShowKeyboard ? 10 : 0 }}
             >
-              <Text style={styles.title}>Реєстріція</Text>
+              <Text style={styles.title}>Увійти</Text>
               <View>
                 <TextInput
                   style={styles.input}
@@ -69,7 +87,7 @@ export default function App() {
                   style={styles.btn}
                   onPress={keyboardHide}
                 >
-                  <Text style={styles.btnText}>Зареєструватись</Text>
+                  <Text style={styles.btnText}>Вхід</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -93,6 +111,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    fontFamily: 'Roboto-400',
     fontSize: 30,
     lineHeight: 35,
     letterSpacing: '0.01em',
