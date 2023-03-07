@@ -71,9 +71,11 @@ export default function App() {
                   onChangeText={value =>
                     setstate(prevState => ({ ...prevState, email: value }))
                   }
+                  placeholder="Type text"
                 />
 
                 <TextInput
+                  placeholder="Type text"
                   style={styles.input}
                   secureTextEntry={true}
                   onFocus={() => setIsShowKeyboard(true)}
@@ -114,16 +116,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-400',
     fontSize: 30,
     lineHeight: 35,
+    marginBottom: 33,
     letterSpacing: '0.01em',
     textAlign: 'center',
-    marginBottom: 33,
   },
   input: {
     height: 50,
     borderRadius: 10,
     borderWidth: 1,
-    color: '#E8E8E8',
     marginBottom: 16,
+    color: '#E8E8E8',
   },
 
   form: {
@@ -133,9 +135,9 @@ const styles = StyleSheet.create({
 
   btn: {
     height: 51,
-    backgroundColor: '#FF6C00',
     borderRadius: 100,
     marginTop: 43,
+    backgroundColor: '#FF6C00',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -145,5 +147,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#FFFFFF',
+    textAlign: 'center',
   },
 });
